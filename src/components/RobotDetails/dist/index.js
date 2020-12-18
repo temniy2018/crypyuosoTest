@@ -80,9 +80,7 @@ var RobotDetails = function (_a) {
     var _b = react_1.useState(false), isEdit = _b[0], setIsEdit = _b[1];
     var entries = Object.entries(route.params.robot.robot_settings.robot_settings);
     var _c = react_1.useState(entries), settings = _c[0], setSettings = _c[1];
-    console.log(route.params.robot);
     var onSubmit = function () {
-        console.log(route.params.robot);
         var newSettings = {};
         settings.map(function (el) { return (newSettings[el[0]] = el[1]); });
         var newRobot = {

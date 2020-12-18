@@ -85,10 +85,9 @@ const RobotDetails:React.FC<Props> = ({ navigation, route }) => {
 	const [isEdit, setIsEdit] = useState(false);
 	const entries = Object.entries(route.params.robot.robot_settings.robot_settings);
     const [settings, setSettings] = useState(entries);
-    console.log(route.params.robot);
+
 
 	const onSubmit = () => {
-		console.log(route.params.robot);
 		let newSettings = {};
 		settings.map((el) => (newSettings[el[0]] = el[1]));
 		const newRobot = {

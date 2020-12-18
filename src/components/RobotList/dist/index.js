@@ -43,6 +43,7 @@ exports.__esModule = true;
 var react_1 = require("react");
 var react_native_1 = require("react-native");
 var client_1 = require("@apollo/client");
+var Robot_1 = require("./Robot");
 var logo_png_1 = require("../../../assets/logo.png");
 var query = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n\tquery MyQuery {\n\t\trobots {\n\t\t\tid\n\t\t\tcode\n\t\t\trobot_settings {\n\t\t\t\trobot_settings\n\t\t\t}\n\t\t}\n\t}\n"], ["\n\tquery MyQuery {\n\t\trobots {\n\t\t\tid\n\t\t\tcode\n\t\t\trobot_settings {\n\t\t\t\trobot_settings\n\t\t\t}\n\t\t}\n\t}\n"])));
 var s = react_native_1.StyleSheet.create({
@@ -71,19 +72,6 @@ var s = react_native_1.StyleSheet.create({
         height: '100%',
         padding: 20,
         display: 'flex'
-    },
-    list_robot: {
-        backgroundColor: '#091943',
-        padding: 30,
-        borderRadius: 10,
-        marginBottom: 10
-    },
-    list_robot__header: {
-        color: 'white',
-        fontSize: 18
-    },
-    list_robot__text: {
-        color: '#f1f1f1'
     },
     errorAndLoading: {
         backgroundColor: '#00235a',
@@ -119,21 +107,17 @@ var RobotList = function (_a) {
             }
         });
         setRobots(newRobots);
-        console.log(robots);
     };
     var populate = function (event) { return __awaiter(void 0, void 0, void 0, function () {
         var scrollY;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log(page);
                     scrollY = event.nativeEvent.contentOffset.y;
-                    console.log(scrollY);
                     if (!(scrollY > 1050 * page)) return [3 /*break*/, 2];
                     return [4 /*yield*/, setTimeout(function () { return setPage(page + 1); }, 2000)];
                 case 1:
                     _a.sent();
-                    console.log('+1');
                     _a.label = 2;
                 case 2: return [2 /*return*/];
             }
@@ -161,11 +145,7 @@ var RobotList = function (_a) {
         react_1["default"].createElement(react_native_1.ScrollView, { style: s.list, onScroll: function (e) { return populate(e); } }, robots.map(function (el, i) {
             if (i < page * 10) {
                 return (react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: function () { return navigation.navigate('RobotDetails', { robot: el, onSubmit: Submit }); }, key: el.id },
-                    react_1["default"].createElement(react_native_1.View, { style: s.list_robot },
-                        react_1["default"].createElement(react_native_1.Text, { style: s.list_robot__header }, "ID"),
-                        react_1["default"].createElement(react_native_1.Text, { style: s.list_robot__text }, el.id),
-                        react_1["default"].createElement(react_native_1.Text, { style: s.list_robot__header }, "CODE"),
-                        react_1["default"].createElement(react_native_1.Text, { style: s.list_robot__text }, el.code))));
+                    react_1["default"].createElement(Robot_1["default"], { id: el.id, code: el.code })));
             }
         }))));
 };

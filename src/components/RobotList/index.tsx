@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, TouchableOpacity, View, Image, StyleSheet, ScrollView, AppState } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
+import Robot from './Robot';
 import logo from '../../../assets/logo.png';
 
 const query = gql`
@@ -42,19 +43,6 @@ const s = StyleSheet.create({
 		padding: 20,
 		display: 'flex',
 	},
-	list_robot: {
-		backgroundColor: '#091943',
-		padding: 30,
-		borderRadius: 10,
-		marginBottom: 10,
-	},
-	list_robot__header: {
-		color: 'white',
-		fontSize: 18,
-	},
-	list_robot__text: {
-		color: '#f1f1f1',
-  },
   errorAndLoading: {
     backgroundColor: '#00235a',
 		height: '100%',
@@ -94,16 +82,12 @@ const RobotList: React.FC<Props> = ({ navigation }) => {
 			}
 		});
 		setRobots(newRobots);
-		console.log(robots);
 	};
 
 	const populate = async(event: Object) => {
-    console.log(page);
     const scrollY = event.nativeEvent.contentOffset.y;
-    console.log(scrollY);
 		if(scrollY > 1050*page) {
       await setTimeout(() => setPage(page+1), 2000)
-      console.log('+1');
     }
 	};
 
@@ -145,12 +129,7 @@ const RobotList: React.FC<Props> = ({ navigation }) => {
 								onPress={() => navigation.navigate('RobotDetails', { robot: el, onSubmit: Submit })}
 								key={el.id}
 							>
-								<View style={s.list_robot}>
-									<Text style={s.list_robot__header}>ID</Text>
-									<Text style={s.list_robot__text}>{el.id}</Text>
-									<Text style={s.list_robot__header}>CODE</Text>
-									<Text style={s.list_robot__text}>{el.code}</Text>
-								</View>
+								<Robot id={el.id} code={el.code} />
 							</TouchableOpacity>
 						);
 					}
